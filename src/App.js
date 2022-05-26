@@ -68,6 +68,7 @@ class Board extends React.Component {
           }
       } else if(!checkState[column][colHeight-1]) {
           checkState[column][colHeight-1] = this.state.players[player];
+          // eslint-disable-next-line
           row = colHeight-1;
       } else {
           return;

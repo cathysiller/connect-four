@@ -36,11 +36,13 @@
   align-items: center;
   display: flex;
   justify-content: center;
+  padding: 36px;
   position: relative;
 }
 
 .column-container {
   background-color: #1d53ab;
+  padding: 4px 4px;
   position: relative;
 }
 
@@ -51,12 +53,13 @@
 
 .drop-button {
   background-color: #1d53ab;
+  border-radius: 16px;
   border: none;
-  border-radius: 8px;
   color: white;
   cursor: pointer;
-  padding: 8px 2px;
-  text-transform: capitalize;
+  margin-bottom: 12px;
+  padding: 8px;
+  text-transform: uppercase;
 }
 
 .drop-button:disabled,
@@ -66,15 +69,14 @@
   cursor: not-allowed;
 }
 
-
 .reset-button {
-  background-color: #a62216;
+  background-color: #FF0000;
   border: none;
-  border-radius: 8px;
+  border-radius: 16px;
   color: white;
   cursor: pointer;
-  padding: 4px 16px;
-  text-transform: capitalize;
+  padding: 4px 24px;
+  text-transform: uppercase;
 }
 
 .column {

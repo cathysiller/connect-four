@@ -35,7 +35,7 @@ class Board extends React.Component {
           currentPlayer: 0,
           players: ["Black", "Red"],
           winner: null,
-          columnState: false,
+          columnState: Array(props.width).fill(false),
       };
   }
 
@@ -53,10 +53,8 @@ class Board extends React.Component {
       var checkState = this.state.boardState;
       var player = this.state.currentPlayer;
       let row;
-      //var full = false;
-      var full = this.state.columnState;
-      //let full;
-
+      //var full = this.state.columnState;
+      
       // column in original state and not full
       if (checkState[column][colHeight-1] && !checkState[column][0]) {
           for (var i = 0; i < colHeight; i++) {
@@ -74,19 +72,15 @@ class Board extends React.Component {
           return;
       }
 
-      //console.log(JSON.stringify(checkState));
-
       if (!JSON.stringify(checkState[column]).includes(null)) {
-        full = true;
-        this.setState({
-          columnState: true,
-        });
-      }
-
-      console.log(full);
-
+        //full = true;
+        this.setState(prevState => {
+            const newColumnState = [...prevState.columnState]
+            newColumnState[column] = true;
+            return { columnState: newColumnState }
+        }
+      )};
       
-
       // move to next player
       player++;
       if (player === this.state.players.length) {
@@ -99,19 +93,6 @@ class Board extends React.Component {
           //columnState: full,
       });
   }
-
-  /*
-  renderDropButton() {
-    return (
-      <button 
-        className="drop-button"
-        onClick={(e) => this.dropToken(parseInt(e.target.id), parseInt(this.props.height))}
-      >
-        Drop
-      </button>
-    ) 
-  }
-  */
 
   // render all the cells
   renderCell(column, row) {
@@ -132,14 +113,10 @@ class Board extends React.Component {
 
           columnList.push(
             <>
-              <div id={column}>
-                {this.state.columnState === true ? (
+              <div>
+                {this.state.columnState[column] === true ? (
                   <button 
                   className="drop-button"
-                  //disabled={isDisabled}
-                  //disabled={columnState={this.state.columnState[this.state.columnState]} }
-                  //disabled={!full}
-                  //disabled={true}
                   disabled={true}
                   id={column} 
                   onClick={(e) => this.dropToken(parseInt(e.target.id), parseInt(this.props.height))}
@@ -157,7 +134,7 @@ class Board extends React.Component {
                   </button>
                 )}
 
-                <div id={column} className="column-container">
+                <div className="column-container" id={column}>
                     {rowList}
                 </div>
               </div>
@@ -181,8 +158,6 @@ class Board extends React.Component {
 }
 
 const App = () => {
-  //const [title, setTitle] = React.useState("Connect 4!")
-  
   return (
       <div className="App">
           <Board width={7} height={6}/>
